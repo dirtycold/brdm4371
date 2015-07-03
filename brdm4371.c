@@ -31,19 +31,19 @@ static int brdm4371_probe(struct platform_device *pdev)
 {
 	struct device_node *np = pdev->dev.of_node;
 	uint32_t count = 7;
-pr_info("JRW: %s <- %pS\n", __func__, __builtin_return_address(0));
-	if (np) {
+	pr_info("JRW: %s <- %pS\n", __func__, __builtin_return_address(0));
+
+	if (np)
 		of_property_read_u32(np, "count", &count);
-	}
-pr_info("JRW: %s count = %u\n", __func__, count);
+
+	pr_info("JRW: %s count = %u\n", __func__, count);
 
 	return 0;
 }
 
 static int brdm4371_remove(struct platform_device *pdev)
 {
-pr_info("JRW: %s <- %pS\n", __func__, __builtin_return_address(0));
-
+	pr_info("JRW: %s <- %pS\n", __func__, __builtin_return_address(0));
 	return 0;
 }
 
@@ -66,41 +66,41 @@ static struct platform_driver brdm4371_driver = {
 
 #ifndef CONFIG_OF
 static struct platform_device brdm4371_device = {
-    .name           = "brdm4371",
-    .id             = 0,
-    .num_resources  = 0,
+	.name           = "brdm4371",
+	.id             = 0,
+	.num_resources  = 0,
 };
 #endif
 
 
 static int __init brdm4371_init(void)
 {
-    int rv;
+	int rv;
 
-pr_info("JRW: %s <- %pS\n", __func__, __builtin_return_address(0));
-    rv = platform_driver_register(&brdm4371_driver);
-    if (rv < 0) {
-        pr_err("brdm4371 failed to register\n");
-        return rv;
-    }
+	pr_info("JRW: %s <- %pS\n", __func__, __builtin_return_address(0));
+	rv = platform_driver_register(&brdm4371_driver);
+	if (rv < 0) {
+		pr_err("brdm4371 failed to register\n");
+		return rv;
+	}
 
 #ifndef CONFIG_OF
-    pr_info("JRW: %s load without of\n", __func__);
-    rv = platform_device_register(&brdm4371_device);
-    if (rv < 0) {
-        pr_err("brdm4371 failed to register\n");
-        platform_driver_unregister(&brdm4371_driver);
-        return rv;
-    }
+	pr_info("JRW: %s load without of\n", __func__);
+	rv = platform_device_register(&brdm4371_device);
+	if (rv < 0) {
+		pr_err("brdm4371 failed to register\n");
+		platform_driver_unregister(&brdm4371_driver);
+		return rv;
+	}
 #endif
 
-    return 0;
+	return 0;
 }
 
 static void __exit brdm4371_exit(void)
 {
 	pr_info("JRW: %s <- %pS\n", __func__, __builtin_return_address(0));
-    platform_driver_unregister(&brdm4371_driver);
+	platform_driver_unregister(&brdm4371_driver);
 }
 
 module_init(brdm4371_init);
