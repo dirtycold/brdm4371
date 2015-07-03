@@ -1,0 +1,10 @@
+.git
+*.dtb
+*.o
+*.ko
+.*.cmd
+Module.symvers
+*.mod.c
+modules.order
+.*.swp
+.tmp_versions

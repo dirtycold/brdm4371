@@ -1,0 +1,28 @@
+// Enable the i2c0 interface
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2708";
+
+
+	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			brdm4371: brdm4371@10{
+				 compatible = "jrw,brdm4371";
+				 count = <1>;
+			};
+		};
+	};
+
+/*
+	fragment@1 {
+		target = <&i2c0>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+*/
+};
+
